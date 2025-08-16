@@ -100,7 +100,7 @@ Multi-Agent-Research-System/
          ├─ entities.ts              — Entity extraction + Neo4j upserts/relationships.
          ├─ memory.ts                — Memory extraction/classification storage.
          └─ report.ts                — Report structure + section generation (model packs).
-
+text```
 
 
 # 2) Environment & Docker
