@@ -23,5 +23,5 @@ npm run dev            # in /server
 cd ../client && npm run dev
 
 ## 6) Open the app
-## UI:      http://localhost:5173
-## Neo4j:   http://localhost:7474  (bolt://localhost:7687)
+UI:      http://localhost:5173
+Neo4j:   http://localhost:7474  (bolt://localhost:7687)
