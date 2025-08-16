@@ -147,8 +147,31 @@ NEO4J_PASSWORD=password123
 
 `modelconfigs` — stored model overrides (optional).
 
+
 ### Neo4j (graph)
 
 `Node`: (:Entity {id, name, type, confidence, mentions})
 
 `Rels`: [:RELATED_TO {weight}], [:PART_OF {weight}], [:CONTRADICTS {weight}], [:SUPPORTS {weight}] (used by demo).
+
+# 4) LLM Integration
+
+Unified helper server/src/services/llm/index.ts provides withFallback({provider, model}, params) across:
+
+OpenAI (`openai.ts`)
+
+Anthropic (`anthropic.ts`)
+
+Gemini (`gemini.ts`)
+
+Used by:
+
+`conversation.ts` (agent replies; phase-aware participants)
+
+`memory.ts` (extract memories)
+
+`entities.ts` (NER → graph upserts)
+
+`report.ts` (outline + section packs: summary/narrative/technical)
+
+
