@@ -126,5 +126,29 @@ LLM_MOCK=1
 
 ### Neo4j
 NEO4J_URI=bolt://localhost:7687
+
 NEO4J_USER=neo4j
+
 NEO4J_PASSWORD=password123
+
+# 3) Database Schema
+
+### MongoDB (collections)
+
+`contexts` — Domain/Project/Room/Agent with traits + modelConfig.
+
+`conversations` — topic, phase, participantIds, timestamps.
+
+`messages` — { conversationId, sender("user"|"agent"|"system"), content, metadata, timestamp }.
+
+`memories` — extracted { type(fact|insight|question|action), content, confidence, importance, source, conversationId, timestamp }.
+
+`reports` — { title, format(executive|standard|comprehensive), detailLevel, structure, content, modelsUsed[], sourceMemoryIds[], versionNumber }.
+
+`modelconfigs` — stored model overrides (optional).
+
+### Neo4j (graph)
+
+`Node`: (:Entity {id, name, type, confidence, mentions})
+
+`Rels`: [:RELATED_TO {weight}], [:PART_OF {weight}], [:CONTRADICTS {weight}], [:SUPPORTS {weight}] (used by demo).
