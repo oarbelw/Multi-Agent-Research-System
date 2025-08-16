@@ -193,3 +193,8 @@ Used by:
 6) Report Generation
 `services/report.ts` builds an outline (LLM), then fills sections (LLM) using different model packs per section; saved in reports collection.
 
+# 6) Screenshots
+
+![Screenshot1](working_screenshot.png)
+![Screenshot2](working_screenshot_1.png)
+![Screenshot3](working_screenshot_2.png)
