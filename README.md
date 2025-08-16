@@ -104,13 +104,19 @@ Multi-Agent-Research-System/
 Server .env (copy from .env.example):
 
 ### API
+
 PORT=4000
+
 MONGO_URL=mongodb://localhost:27017/mach33
 
 ### LLM (optional; set LLM_MOCK=1 to skip)
+
 OPENAI_API_KEY=
+
 ANTHROPIC_API_KEY=
+
 GEMINI_API_KEY=
+
 LLM_MOCK=1
 
 ### Neo4j
