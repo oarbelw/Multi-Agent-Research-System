@@ -174,4 +174,22 @@ Used by:
 
 `report.ts` (outline + section packs: summary/narrative/technical)
 
+# 5) Implementation Overview
+
+1) Contexts & Inheritance
+`contexts/inheritance.ts` computes effective traits/modelConfig down the tree (Domain → Project → Room → Agent).
+
+2) Conversation Fan-out
+`services/conversation.ts` saves user message, then calls the phase’s agents (Researcher/Analyzer/Synthesizer/Author), captures outputs, and auto-extracts memories/entities.
+
+3) Memory & Entity Graph
+`services/memory.ts` extracts 0–6 memories per message.
+
+`services/entities.ts` runs NER, pushes nodes/relationships to Neo4j.
+
+5) Workflow/Phases
+`routes/workflow.ts` & `routes/conversations.ts` track phase ∈ {research, analysis, synthesis, report} with simple transitions.
+
+6) Report Generation
+`services/report.ts` builds an outline (LLM), then fills sections (LLM) using different model packs per section; saved in reports collection.
 
