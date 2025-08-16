@@ -30,140 +30,77 @@ Neo4j:   http://localhost:7474  (bolt://localhost:7687)
 
 # 1) Project Layout
 
+## 1) Project Layout
+
+```text
 Multi-Agent-Research-System/
-
-├─ docker-compose.yml                – Spins up client, server, MongoDB, and Neo4j containers.
-
-├─ Mach33 Candidate Exercise.pdf     – Original spec/instructions for the project.
-
+├─ docker-compose.yml                — Spins up client, server, MongoDB, and Neo4j containers.
+├─ Mach33 Candidate Exercise.pdf     — Original spec/instructions for the project.
 ├─ client/
-
-│  ├─ .dockerignore                  – Files to exclude from client Docker build context.
-
-│  ├─ .gitignore                     – Files ignored by Git in the client folder.
-
-│  ├─ Dockerfile                     – Builds the client (Vite) image for Docker.
-
-│  ├─ eslint.config.js               – Linting rules for the client codebase.
-
-
-│  ├─ index.html                     – Vite app HTML shell; mounts the React app.
-
-│  ├─ package.json                   – Client dependencies and npm scripts.
-
-│  ├─ package-lock.json              – Locked dependency tree for client.
-
-│  ├─ tsconfig.app.json              – TS compiler options for app sources.
-
-│  ├─ tsconfig.json                  – Base TS config (extends/refs others).
-
-│  ├─ tsconfig.node.json             – TS config for Vite/node tooling.
-
-│  ├─ vite.config.ts                 – Vite dev/build configuration.
-
+│  ├─ .dockerignore                  — Exclude files from client Docker build context.
+│  ├─ .gitignore                     — Git ignores for client.
+│  ├─ Dockerfile                     — Builds the client (Vite) image.
+│  ├─ eslint.config.js               — Client lint rules.
+│  ├─ index.html                     — Vite HTML shell; mounts React app.
+│  ├─ package.json                   — Client deps & scripts.
+│  ├─ package-lock.json              — Locked deps.
+│  ├─ tsconfig.app.json              — TS options for app sources.
+│  ├─ tsconfig.json                  — Base TS config.
+│  ├─ tsconfig.node.json             — TS for Vite/node tooling.
+│  ├─ vite.config.ts                 — Vite dev/build config.
 │  └─ src/
-
-│     ├─ assets/                     – Static assets (images, icons, etc.).
-
-│     ├─ api.ts                      – Small fetch helpers for calling server APIs.
-
-│     ├─ App.css                     – App-level CSS styles.
-
-│     ├─ App.tsx                     – Main UI: contexts panel, chat, memories, graph, reports.
-
-│     ├─ index.css                   – Global CSS reset/base styles.
-
-│     ├─ main.tsx                    – React entrypoint; renders <App />.
-
-│     ├─ types.ts                    – Shared TypeScript types for client state/models.
-
-│     └─ vite-env.d.ts               – Vite/TS env typings (e.g., import.meta.env).
-
+│     ├─ assets/                     — Static assets.
+│     ├─ api.ts                      — Fetch helpers for server APIs.
+│     ├─ App.css                     — App styles.
+│     ├─ App.tsx                     — Main UI (contexts, chat, memories, graph, reports).
+│     ├─ index.css                   — Global styles.
+│     ├─ main.tsx                    — React entrypoint.
+│     ├─ types.ts                    — Shared client types.
+│     └─ vite-env.d.ts               — Vite env typings.
 └─ server/
-
-   ├─ .dockerignore                  – Files to exclude from server Docker build context.
-   
-   ├─ Dockerfile                     – Builds the server (Express/TS) image.
-   
-   ├─ package.json                   – Server dependencies and npm scripts.
-   
-   ├─ package-lock.json              – Locked dependency tree for server.
-   
-   ├─ tsconfig.json                  – TypeScript config for the server.
-   
-   ├─ .env.example                   – Template of required env vars (copy to .env).
-   
+   ├─ .dockerignore                  — Exclude files from server Docker build.
+   ├─ Dockerfile                     — Builds the server image.
+   ├─ package.json                   — Server deps & scripts.
+   ├─ package-lock.json              — Locked deps.
+   ├─ tsconfig.json                  — Server TS config.
+   ├─ .env.example                   — Template env vars (copy to .env).
    └─ src/
-   
-      ├─ index.ts                    – Express app bootstrap; mounts routes & DB connections.
-      
+      ├─ index.ts                    — Express bootstrap; routes & DB connections.
       ├─ contexts/
-      
-      │  └─ inheritance.ts           – Computes effective properties via Context inheritance.
-      
+      │  └─ inheritance.ts           — Effective properties via Context inheritance.
       ├─ db/
-      
-      │  ├─ graph.ts                 – Neo4j driver init and helpers.
-      
-      │  ├─ mongo.ts                 – MongoDB connection setup.
-      
+      │  ├─ graph.ts                 — Neo4j driver init & helpers.
+      │  ├─ mongo.ts                 — MongoDB connection.
       │  └─ models/
-      
-      │     ├─ Context.ts            – Context schema (Domain/Project/Room/Agent).
-      
-      │     ├─ Conversation.ts       – Conversation schema (topic, phase, participants).
-      
-      │     ├─ Memory.ts             – Memory schema (type/importance/confidence + indexes).
-      
-      │     ├─ Message.ts            – Message schema (sender, metadata, timestamps).
-      
-      │     ├─ ModelConfig.ts        – Optional model config overrides per context.
-      
-      │     └─ Report.ts             – Report schema (structure, content, modelsUsed).
-      
+      │     ├─ Context.ts            — Context schema (Domain/Project/Room/Agent).
+      │     ├─ Conversation.ts       — Conversation schema (topic, phase, participants).
+      │     ├─ Memory.ts             — Memory schema (type/importance/confidence + indexes).
+      │     ├─ Message.ts            — Message schema (sender, metadata, timestamps).
+      │     ├─ ModelConfig.ts        — Optional model config overrides per context.
+      │     └─ Report.ts             — Report schema (structure, content, modelsUsed).
       ├─ routes/
-      
-      │  ├─ contexts.ts              – CRUD + /effective endpoints for contexts.
-      
-      │  ├─ conversations.ts         – Start/reuse by topic, send message, phase/topic APIs.
-      
-      │  ├─ graph.ts                 – Entity extraction + graph snapshot endpoints.
-      
-      │  ├─ memories.ts              – List/create/delete memories; force-extract.
-      
-      │  ├─ reports.ts               – Generate/list reports endpoints.
-      
-      │  └─ workflow.ts              – Phase management/metadata routes.
-      
+      │  ├─ contexts.ts              — CRUD + /effective.
+      │  ├─ conversations.ts         — Start/reuse topic, send, phase/topic APIs.
+      │  ├─ graph.ts                 — Entity extraction + graph snapshot endpoints.
+      │  ├─ memories.ts              — List/create/delete memories; force-extract.
+      │  ├─ reports.ts               — Generate/list reports.
+      │  └─ workflow.ts              — Phase management/metadata routes.
       ├─ scripts/
-      
-      │  ├─ seed.ts                  – Seeds demo Domain/Project/Room/Agents in Mongo.
-      
-      │  └─ smoke.ts                 – Quick end-to-end sanity checks (LLM + DB).
-      
+      │  ├─ seed.ts                  — Seeds demo Domain/Project/Room/Agents.
+      │  └─ smoke.ts                 — End-to-end sanity checks.
       └─ services/
-      
          ├─ agents/
-         
-         │  └─ prompting.ts          – Builds role/phase-aware prompts for agents.
-         
+         │  └─ prompting.ts          — Role/phase-aware prompt builder.
          ├─ llm/
-         
-         │  ├─ anthropic.ts          – Anthropic client wrapper.
-         
-         │  ├─ gemini.ts             – Google Gemini client wrapper.
-         
-         │  ├─ openai.ts             – OpenAI client wrapper.
-         
-         │  └─ index.ts              – Unified LLM interface + withFallback helper.
-         
-         ├─ conversation.ts          – Fan-out send; per-phase agent selection; memory hooks.
-         
-         ├─ entities.ts              – Entity extraction + Neo4j upserts/relationships.
-         
-         ├─ memory.ts                – Memory extraction/classification storage utilities.
-         
-         └─ report.ts                – Report structure + section generation using model packs.
+         │  ├─ anthropic.ts          — Anthropic client wrapper.
+         │  ├─ gemini.ts             — Google Gemini client wrapper.
+         │  ├─ openai.ts             — OpenAI client wrapper.
+         │  └─ index.ts              — Unified LLM interface + withFallback.
+         ├─ conversation.ts          — Fan-out send; per-phase agent selection; memory hooks.
+         ├─ entities.ts              — Entity extraction + Neo4j upserts/relationships.
+         ├─ memory.ts                — Memory extraction/classification storage.
+         └─ report.ts                — Report structure + section generation (model packs).
+
 
 
 # 2) Environment & Docker
